@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel = "stylesheet" href="./answerCss.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class = "main">
+        <div class = "left_side">
+            <button class = "btnSide" onclick="Attack(1)">А</button>
+            <button class = "btnSide">Б</button>
+            <button class = "btnSide">П</button>
+            <button class = "btnSide">О</button>
+            <button class = "btnSide">З</button>
+        </div>
+        <div class="center">
+            <div class="players">
+                <div class="left_Players">
+                    <p class = "player 1">5</p>
+                    <p class = "player 1">6</p>
+                    <p class = "player 1">1</p>
+                    <p class = "player 1">4</p>
+                    <p class = "player 1">3</p>
+                    <p class = "player 1">2</p>
+                </div>
+                <div class="left_Players">
+                    <p class = "player 2">2</p>
+                    <p class = "player 2">3</p>
+                    <p class = "player 2">4</p>
+                    <p class = "player 2">1</p>
+                    <p class = "player 2">6</p>
+                    <p class = "player 2">5</p>
+                </div>
+            </div>
+            <div class="main_score">
+                <div class="score">
+                    <p class = "score_text">10</p>
+                    <p class = "score_text">2</p>
+                </div>
+                <div class="score">
+                    <p class = "score_text">10</p>
+                    <p class = "score_text">2</p>
+                </div>
+            </div>
+        </div>
+        <div class = "left_side">
+            <button class = "btnSide" onclick="Attack(2)">А</button>
+            <button class = "btnSide">Б</button>
+            <button class = "btnSide">П</button>
+            <button class = "btnSide">О</button>
+            <button class = "btnSide">З</button>
+        </div>
+    </div>
+    <script>
+        function Attack(side){
+            alert(`${side} is attacking!`)
+            let players = document.getElementsByClassName(`${side}`);
+            let playerValues = [];
+            let playerValuesInt = [];
+
+            for(let i = 0; i < 6; i++){
+                playerValues.push(players[i].textContent);
+                playerValuesInt.push(players[i].textContent);
+            }
+            for(let i = 0; i <4; i++){
+                playerValuesInt.shift();
+            }
+            playerValuesInt.unshift(playerValues[0]);
+            playerValuesInt.pop();
+            playerValuesInt.pop();
+            playerValuesInt.push(playerValues[3]);
+            playerValuesInt.push(playerValues[4]);
+            
+            playerValuesInt.unshift(playerValues[5]);
+            playerValuesInt.unshift(playerValues[2]);
+            playerValuesInt.unshift(playerValues[1]);
+            
+            alert(playerValuesInt);
+            
+           
+            for(let i = 0; i < 6; i++){
+                players[i].textContent = playerValuesInt[i];
+            }
+        }
+    </script>
+</body>
+</html>
