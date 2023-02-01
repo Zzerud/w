@@ -5,85 +5,282 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel = "stylesheet" href="./answerCss.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Made_By_Zzerud^-^</title>
 </head>
 <body>
-    <div class = "main">
-        <div class = "left_side">
-            <button class = "btnSide" onclick="Attack(1)">А</button>
-            <button class = "btnSide">Б</button>
-            <button class = "btnSide">П</button>
-            <button class = "btnSide">О</button>
-            <button class = "btnSide">З</button>
-        </div>
-        <div class="center">
-            <div class="players">
-                <div class="left_Players">
-                    <p class = "player 1">5</p>
-                    <p class = "player 1">6</p>
-                    <p class = "player 1">1</p>
-                    <p class = "player 1">4</p>
-                    <p class = "player 1">3</p>
-                    <p class = "player 1">2</p>
+    
+    <div>
+        <div class = "main">
+            <div class = "left_side">
+                <button class = "btnSide" onclick="Attack(1, `attack`)">А</button>
+                <button class = "btnSide" onclick="Attack(1, `block`)">Б</button>
+                <button class = "btnSide" onclick="Attack(1, `innings`)">П</button>
+                <button class = "btnSide" onclick="Errors(1)">О</button>
+                <button class = "btnSide" onclick="Replace(1)">З</button>
+            </div>
+            <div class="center">
+                <div class="players">
+                    <div class="left_Players">
+                        <p class = "player 1">5</p>
+                        <p class = "player 1">6</p>
+                        <p class = "player 1">1</p>
+                        <p class = "player 1">4</p>
+                        <p class = "player 1">3</p>
+                        <p class = "player 1">2</p>
+                    </div>
+                    <div class="left_Players">
+                        <p class = "player 2">2</p>
+                        <p class = "player 2">3</p>
+                        <p class = "player 2">4</p>
+                        <p class = "player 2">1</p>
+                        <p class = "player 2">6</p>
+                        <p class = "player 2">5</p>
+                    </div>
                 </div>
-                <div class="left_Players">
-                    <p class = "player 2">2</p>
-                    <p class = "player 2">3</p>
-                    <p class = "player 2">4</p>
-                    <p class = "player 2">1</p>
-                    <p class = "player 2">6</p>
-                    <p class = "player 2">5</p>
+                <div class="main_score">
+                    <div class="score">
+                        <p class = "score_text" id = "1"> 0 (0)</p>
+                    </div>
+                    <div class="score">
+                        <p class = "score_text" id = "2"> 0 (0)</p>
+                    </div>
                 </div>
             </div>
-            <div class="main_score">
-                <div class="score">
-                    <p class = "score_text">10</p>
-                    <p class = "score_text">2</p>
-                </div>
-                <div class="score">
-                    <p class = "score_text">10</p>
-                    <p class = "score_text">2</p>
-                </div>
+            <div class = "left_side">
+                <button class = "btnSide" onclick="Attack(2, `attack`)">А</button>
+                <button class = "btnSide" onclick="Attack(2, `block`)">Б</button>
+                <button class = "btnSide" onclick="Attack(2, `innings`)">П</button>
+                <button class = "btnSide" onclick="Errors(2)">О</button>
+                <button class = "btnSide" onclick="Replace(2)">З</button>
             </div>
-        </div>
-        <div class = "left_side">
-            <button class = "btnSide" onclick="Attack(2)">А</button>
-            <button class = "btnSide">Б</button>
-            <button class = "btnSide">П</button>
-            <button class = "btnSide">О</button>
-            <button class = "btnSide">З</button>
         </div>
     </div>
+    <div id = "menu" class = "menu">
+        <p id = "best" class="bests">Лучшая нападающая команда - </p>
+        <p id = "nice" class="bests">Лучшая подающая команда - </p>
+        <p id = "blocker" class="bests">Лучшая команда защиты - </p>
+    </div>
     <script>
-        function Attack(side){
-            alert(`${side} is attacking!`)
-            let players = document.getElementsByClassName(`${side}`);
-            let playerValues = [];
-            let playerValuesInt = [];
+            
+        let pointsBeforeMain = window.prompt("Сколько очков надо для 1 партии?");
+        let mainPointsToWin = window.prompt("Сколько всего партий?");
+        var div = document.getElementById(`menu`);
+            div.style.display = "none";
+        let currentTeam = 1;
 
-            for(let i = 0; i < 6; i++){
-                playerValues.push(players[i].textContent);
-                playerValuesInt.push(players[i].textContent);
+        let currentNumber1 = 0;
+        let currentNumber2 = 0;
+
+        let currentAttackSide1 = 0;
+        let currentAttackSide2 = 0;
+        let currentInningsSide1 = 0;
+        let currentInningsSide2 = 0;
+        let currentBlockSide1 = 0;
+        let currentBlockSide2 = 0;
+        
+
+        let currentMainPoint1 = 0;
+        let currentMainPoint2 = 0;
+        
+        function Attack(side, variant){
+            alert(`${side} is attacking!`);
+            let playerGoal = ``;
+            switch(variant){
+                case `attack`:
+                    playerGoal = prompt("Какой игрок атаковал?");
+                    if(side == 1)
+                        currentAttackSide1++;
+                    else
+                        currentAttackSide2++;
+                break;
+                case `block`:
+                    playerGoal = prompt("Какой игрок заблокировал и забил?");
+                    if(side == 1)
+                        currentBlockSide1++;
+                    else
+                        currentBlockSide2++;
+                break;
+                case `innings`:
+                    playerGoal = prompt("Какой игрок забил при помощи подачи?");
+                    if(side==1)
+                        currentInningsSide1++;
+                    else
+                        currentInningsSide2++;
+                break;
             }
-            for(let i = 0; i <4; i++){
-                playerValuesInt.shift();
+            
+
+            let playerValues = [];
+            let players = document.getElementsByClassName(`${side}`);
+                let playerValuesInt = [];
+                for(let i = 0; i < 6; i++){
+                    playerValuesInt.push(players[i].textContent);
+                }
+            
+            let playerExists = false;
+
+            for (let i = 0; i < playerValuesInt.length; i++) {
+                    if (playerGoal == playerValuesInt[i]) {
+                        console.log(`Player ${playerGoal} from team ${side} scored!`);
+                        if(side == 1){
+                            currentNumber1++;
+                            if(currentNumber1 == pointsBeforeMain){
+                                currentMainPoint1++;
+                                currentNumber1 = 0;
+                            }
+                            document.getElementById(`1`).textContent = `${currentNumber1} (${currentMainPoint1})`;
+                        }
+                        else{
+                            currentNumber2++;
+                            if(currentNumber2 == pointsBeforeMain){
+                                currentMainPoint2++;
+                                currentNumber2 = 0;
+                            }
+                            document.getElementById(`2`).textContent = `${currentNumber2} (${currentMainPoint2})`;
+
+                        }
+                        if(currentMainPoint1 == mainPointsToWin){
+                            Winners();
+                        }
+                        else if(currentMainPoint2 == mainPointsToWin){
+                            Winners();
+                        }
+                        playerExists = true;
+                        
+                    }
             }
-            playerValuesInt.unshift(playerValues[0]);
-            playerValuesInt.pop();
-            playerValuesInt.pop();
-            playerValuesInt.push(playerValues[3]);
-            playerValuesInt.push(playerValues[4]);
-            
-            playerValuesInt.unshift(playerValues[5]);
-            playerValuesInt.unshift(playerValues[2]);
-            playerValuesInt.unshift(playerValues[1]);
-            
-            alert(playerValuesInt);
+            if(playerExists){
+                
+            }
+            else{
+                alert("Такого игрока не существует или он не вышел на поле!");
+            }
             
            
-            for(let i = 0; i < 6; i++){
-                players[i].textContent = playerValuesInt[i];
+        }
+        function Errors(side){
+            alert(`${side} is attacking!`);
+            let playerGoal = prompt("какой игрок совершил ошибку?");
+
+            let playerValues = [];
+            let players = document.getElementsByClassName(`${side}`);
+                let playerValuesInt = [];
+                for(let i = 0; i < 6; i++){
+                    playerValuesInt.push(players[i].textContent);
+                }
+            
+            let playerExists = false;
+
+            for (let i = 0; i < playerValuesInt.length; i++) {
+                    if (playerGoal == playerValuesInt[i]) {
+                        console.log(`Player ${playerGoal} from team ${side} scored!`);
+                        if(side == 1){
+                            currentNumber2++;
+                            if(currentNumber2 == pointsBeforeMain){
+                                currentMainPoint2++;
+                                currentNumber2 = 0;
+                            }
+                            document.getElementById(`2`).textContent = `${currentNumber2} (0)`;
+                            side = 2;
+                        }
+                        else{
+                            currentNumber1++;
+                            if(currentNumber1 == pointsBeforeMain){
+                                currentMainPoint1++;
+                                currentNumber1 = 0;
+                            }
+                            document.getElementById(`1`).textContent = `${currentNumber1} (0)`;
+                            side = 1;
+                        }
+                        if(currentMainPoint1 == mainPointsToWin){
+                            Winners();
+                        }
+                        else if(currentMainPoint2 == mainPointsToWin){
+                            Winners();
+                        }
+                            currentTeam = side;
+                            let players = document.getElementsByClassName(`${side}`);
+                            let playerValues = [];
+                            let playerValuesInt = [];
+
+                            for(let i = 0; i < 6; i++){
+                                playerValues.push(players[i].textContent);
+                                playerValuesInt.push(players[i].textContent);
+                            }
+                            for(let i = 0; i <4; i++){
+                                playerValuesInt.shift();
+                            }
+                            playerValuesInt.unshift(playerValues[0]);
+                            playerValuesInt.pop();
+                            playerValuesInt.pop();
+                            playerValuesInt.push(playerValues[3]);
+                            playerValuesInt.push(playerValues[4]);
+                            
+                            playerValuesInt.unshift(playerValues[5]);
+                            playerValuesInt.unshift(playerValues[2]);
+                            playerValuesInt.unshift(playerValues[1]);
+                            
+                            
+                        
+                            for(let i = 0; i < 6; i++){
+                                players[i].textContent = playerValuesInt[i];
+                            }
+                            playerExists = true;
+                        }
+                        
+                        
+                    }
+            
+
+            if(playerExists == false){
+                alert("Такого игрока не существует или он не вышел на поле!");
             }
+        }
+        function Replace(side) {
+        let playerValues = [];
+        let active = false;
+        let players = document.getElementsByClassName(`${side}`);
+        let playerValuesInt = [];
+        for (let i = 0; i < 6; i++) {
+            playerValuesInt.push(players[i].textContent);
+        }
+        
+        let playerPast = prompt("Какого игрока вы хотите заменить?");
+        let playerIndex = playerValuesInt.indexOf(playerPast);
+        if (playerIndex === -1) {
+            alert("Такого игрока не существует или он не вышел на поле!");
+            return;
+        }
+
+        let playerNext = prompt("На какого вы хотите заменить?");
+        playerValuesInt[playerIndex] = playerNext;
+        
+        for (let i = 0; i < 6; i++) {
+            players[i].textContent = playerValuesInt[i];
+        }
+        }
+        function Winners(){
+            let div = document.getElementById(`menu`);
+            div.style.display = "flex";
+            let best = document.getElementById(`best`);
+            let nice = document.getElementById(`nice`);
+            let blocker = document.getElementById(`blocker`);
+
+            if(currentAttackSide1 > currentAttackSide2)
+                best.textContent = `Лучшая нападающая команда - 1`;
+            else
+                best.textContent = `Лучшая нападающая команда - 2`;
+            
+            if(currentInningsSide1 > currentInningsSide2)
+                nice.textContent = `Лучшая подающая команда - 1`;
+            else
+                nice.textContent = `Лучшая подающая команда - 2`;
+
+            if(currentBlockSide1>currentBlockSide2)
+                blocker.textContent = `Лучшая команда защиты - 1`;
+            else
+                blocker.textContent = `Лучшая команда защиты - 2`;
+
         }
     </script>
 </body>
